@@ -13,9 +13,18 @@ pluginManagement {
   includeBuild "build-tools-internal"
 }
 
+
 plugins {
-  id "com.gradle.enterprise" version "3.16.2"
+  id("com.gradle.develocity") version("3.17.1")
   id 'elasticsearch.java-toolchain'
+}
+
+develocity {
+  server = 'https://ec2-52-90-105-110.compute-1.amazonaws.com'
+  allowUntrustedServer = true // unless a trusted certificate is already configured in Develocity
+  buildScan {
+    uploadInBackground = System.getenv("CI") == null // adjust to your CI provider
+  }
 }
 
 rootProject.name = "elasticsearch"

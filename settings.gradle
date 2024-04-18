@@ -16,6 +16,7 @@ pluginManagement {
 plugins {
   id "com.gradle.enterprise" version "3.16.2"
   id 'elasticsearch.java-toolchain'
+  id("com.gradle.common-custom-user-data-gradle-plugin") version "2.0.1"
 }
 
 rootProject.name = "elasticsearch"

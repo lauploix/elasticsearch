@@ -53,12 +53,10 @@ public class EmbeddedProviderExtension {
         String implTaskName = "generate" + capitalName + "ProviderImpl";
         var generateProviderImpl = project.getTasks().register(implTaskName, Sync.class);
         generateProviderImpl.configure(t -> {
-            t.into(generatedResourcesDir);
-            t.into("IMPL-JARS/" + implName, spec -> {
-                spec.from(implConfig);
-                spec.from(generateProviderManifest);
+            t.from(implConfig);
+            t.from(generateProviderManifest);
+            t.into(generatedResourcesDir.map(d -> d.dir("IMPL-JARS/" + implName)) );
             });
-        });
         metaTask.configure(t -> { t.dependsOn(generateProviderImpl); });
 
         var mainSourceSet = getJavaSourceSets(project).findByName(SourceSet.MAIN_SOURCE_SET_NAME);
